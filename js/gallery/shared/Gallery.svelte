@@ -49,7 +49,7 @@
 			? null
 			: value.map((data) => ({
 					image: data.image as FileData,
-					caption: data.caption
+					caption: data.caption,
 				}));
 
 	let prev_value: GalleryData | null = value;
@@ -119,7 +119,7 @@
 			if (selected_index !== null) {
 				dispatch("select", {
 					index: selected_index,
-					value: resolved_value?.[selected_index]
+					value: resolved_value?.[selected_index],
 				});
 			}
 		}
@@ -155,7 +155,7 @@
 		if (container_element && typeof container_element.scrollTo === "function") {
 			container_element.scrollTo({
 				left: pos < 0 ? 0 : pos,
-				behavior: "smooth"
+				behavior: "smooth",
 			});
 		}
 	}
@@ -167,6 +167,11 @@
 	// The `download` attribute of the <a> tag doesn't work for remote URLs (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#download),
 	// so we need to download the image via JS as below.
 	async function download(file_url: string, name: string): Promise<void> {
+		console.log(file_url);
+		if (window.flutter_inappwebview != null) {
+			window.flutter_inappwebview?.callHandler("download", file_url);
+			return;
+		}
 		let response;
 		try {
 			response = await _fetch(file_url);

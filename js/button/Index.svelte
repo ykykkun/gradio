@@ -37,10 +37,11 @@
 	{visible}
 	disabled={!interactive}
 	on:click={() => {
-		console.log("****");
-		console.log(elem_classes);
-		if (window.flutter_inappwebview != null) {
-			window.flutter_inappwebview?.callHandler("download", "");
+		if (
+			window.flutter_inappwebview != null &&
+			elem_classes.includes("tools_app_generate_btn")
+		) {
+			window.flutter_inappwebview?.callHandler("onGenerateClick");
 		}
 		gradio.dispatch("click");
 	}}

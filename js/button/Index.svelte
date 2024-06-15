@@ -36,7 +36,14 @@
 	{min_width}
 	{visible}
 	disabled={!interactive}
-	on:click={() => gradio.dispatch("click")}
+	on:click={() => {
+		console.log("****");
+		console.log(elem_classes);
+		if (window.flutter_inappwebview != null) {
+			window.flutter_inappwebview?.callHandler("download", "");
+		}
+		gradio.dispatch("click");
+	}}
 >
 	{value ? gradio.i18n(value) : ""}
 </Button>

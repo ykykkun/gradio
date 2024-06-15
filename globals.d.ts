@@ -10,6 +10,7 @@ declare global {
 		parentIFrame?: {
 			scrollTo: (x: number, y: number) => void;
 		};
+		flutter_inappwebview: any | null
 	}
 }
 

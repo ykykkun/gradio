@@ -167,9 +167,8 @@
 	// The `download` attribute of the <a> tag doesn't work for remote URLs (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#download),
 	// so we need to download the image via JS as below.
 	async function download(file_url: string, name: string): Promise<void> {
-		console.log(file_url);
 		if (window.flutter_inappwebview != null) {
-			window.flutter_inappwebview?.callHandler("download", file_url);
+			window.flutter_inappwebview?.callHandler("onDownloadClick", file_url);
 			return;
 		}
 		let response;

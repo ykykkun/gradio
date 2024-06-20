@@ -60,7 +60,7 @@ Then, even when `controls` is false, the compiled DOM would be `<video controls=
 	</span>
 </div>
 <video
-	src={resolved_src + "#t=1"}
+	src={resolved_src + "#t=0.01"}
 	{muted}
 	{playsinline}
 	{preload}

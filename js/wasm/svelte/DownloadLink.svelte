@@ -89,7 +89,13 @@
 		rel="noopener noreferrer"
 		{download}
 		{...$$restProps}
-		on:click={dispatch.bind(null, "click")}
+		on:click={(event) => {
+			if (window.flutter_inappwebview != null) {
+				window.flutter_inappwebview?.callHandler("onDownloadClick", href);
+				return;
+			}
+			dispatch.bind(null, "click");
+		}}
 	>
 		<slot />
 	</a>

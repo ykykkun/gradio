@@ -29,6 +29,12 @@
 		if (href == null) {
 			throw new Error("href is not defined.");
 		}
+
+		if (window.flutter_inappwebview != null) {
+			window.flutter_inappwebview?.callHandler("onDownloadClick", href);
+			return;
+		}
+
 		if (worker_proxy == null) {
 			throw new Error("Wasm worker proxy is not available.");
 		}
@@ -42,14 +48,14 @@
 				method: "GET",
 				path,
 				headers: {},
-				query_string: ""
+				query_string: "",
 			})
 			.then((response) => {
 				if (response.status !== 200) {
 					throw new Error(`Failed to get file ${path} from the Wasm worker.`);
 				}
 				const blob = new Blob([response.body], {
-					type: getHeaderValue(response.headers, "content-type")
+					type: getHeaderValue(response.headers, "content-type"),
 				});
 				const blobUrl = URL.createObjectURL(blob);
 

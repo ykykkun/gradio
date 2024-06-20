@@ -82,17 +82,19 @@
 	{/if}
 {:else}
 	<a
-		{href}
-		target={typeof window !== "undefined" && window.__is_colab__
-			? "_blank"
-			: null}
 		rel="noopener noreferrer"
-		{download}
 		{...$$restProps}
 		on:click={(event) => {
-			if (window.flutter_inappwebview != null) {
-				window.flutter_inappwebview?.callHandler("onDownloadClick", href);
-				return;
+			if (href != null) {
+				if (window.flutter_inappwebview != null) {
+					window.flutter_inappwebview?.callHandler("onDownloadClick", href);
+					return;
+				} else {
+					const link = document.createElement("a");
+					link.href = href;
+					link.download = download;
+					link.click();
+				}
 			}
 			dispatch.bind(null, "click");
 		}}
